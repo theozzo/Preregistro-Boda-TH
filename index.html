@@ -252,7 +252,7 @@
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwLjTw6yGYPKlOd7EL16uBIcwVFicqEXT9bFzgWwbW2artYeMDBFVhrVylxHUxtpljSiA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx463g4YbBWdzH441RjPd8UT-rDXaUB1ShT80WXUv5vA00ga8ejertUuS54fqk5sPUR5g/exec";
 
 const DISHES = ['Pescado empanizado','Milanesa de pollo','Cóctel de mariscos','Aguachiles','Camarones Varios','Quesadillas','Menu infantil'];
 const DISH_LABELS = {
@@ -265,19 +265,8 @@ const DISH_LABELS = {
   'Menu infantil':'Menú infantil'
 };
 
-// =============================================
-// LISTA DE INVITADOS — editar según sea necesario
-// formato: 'telefono': { max: N }
-// =============================================
-const USERS = {
-  '5554441100': { max: 3 },
-  '5554441101': { max: 2 },
-  '5554441102': { max: 5 },
-  '5554441103': { max: 1 },
-  '5554441104': { max: 4 }
-};
-
-let currentUser = null, formData = {};
+// Lista de invitados y verificación de duplicados se obtienen de Google Sheets
+let currentMax = null, formData = {};
 
 function showStep(n) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -293,39 +282,47 @@ async function validatePhone() {
     err.textContent = 'Ingrese exactamente 10 dígitos.';
     err.style.display = 'block'; return;
   }
-  if (!USERS[ph]) {
-    err.textContent = 'Este número no se encuentra en la lista de invitados.';
-    err.style.display = 'block'; return;
-  }
 
-  // Verificar si ya está registrado en Google Sheets
   btn.disabled = true;
   btn.textContent = 'Verificando...';
   err.style.display = 'none';
+
   try {
     const res = await fetch(API_URL + '?phone=' + ph);
     const data = await res.json();
-    if (data.registered) {
+
+    if (data.status === 'not_invited') {
+      err.textContent = 'Este número no se encuentra en la lista de invitados.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Continuar'; return;
+    }
+    if (data.status === 'already_registered') {
       err.textContent = 'Este número ya cuenta con un registro confirmado. ¡Nos vemos el 17 de octubre!';
       err.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Continuar'; return;
     }
-  } catch(e) {
-    // Si falla la verificación, dejamos continuar
-  }
-  btn.disabled = false; btn.textContent = 'Continuar';
+    if (data.status !== 'ok') {
+      throw new Error(data.message || 'Error de verificación');
+    }
 
-  err.style.display = 'none';
-  currentUser = USERS[ph]; formData.phone = ph;
-  const sel = document.getElementById('companions-count');
-  sel.innerHTML = '<option value="0">Sin acompañantes</option>';
-  for (let i = 1; i <= currentUser.max; i++) {
-    const o = document.createElement('option');
-    o.value = i; o.textContent = i + ' acompañante' + (i > 1 ? 's' : '');
-    sel.appendChild(o);
+    // OK - configurar paso 2
+    currentMax = data.max; formData.phone = ph;
+    const sel = document.getElementById('companions-count');
+    sel.innerHTML = '<option value="0">Sin acompañantes</option>';
+    for (let i = 1; i <= currentMax; i++) {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = i + ' acompañante' + (i > 1 ? 's' : '');
+      sel.appendChild(o);
+    }
+    document.getElementById('limit-hint').textContent = '(máximo ' + currentMax + ')';
+    btn.disabled = false; btn.textContent = 'Continuar';
+    showStep(2);
+
+  } catch(e) {
+    err.textContent = 'No se pudo verificar el número. Intente de nuevo.';
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Continuar';
   }
-  document.getElementById('limit-hint').textContent = '(máximo ' + currentUser.max + ')';
-  showStep(2);
 }
 
 function renderCompanions() {
@@ -394,8 +391,12 @@ async function submitForm() {
     const data = await res.json();
     if (data.status === 'ok') {
       buildSummary('final-summary'); showStep(4);
-    } else if (data.status === 'duplicate') {
-      err.textContent = 'Este número ya cuenta con un registro. Si tiene dudas contáctenos.';
+    } else if (data.status === 'already_registered') {
+      err.textContent = 'Este número ya cuenta con un registro confirmado.';
+      err.style.display = 'block';
+      btnSubmit.disabled = false; btnBack.disabled = false;
+    } else if (data.status === 'not_invited') {
+      err.textContent = 'Este número no se encuentra en la lista de invitados.';
       err.style.display = 'block';
       btnSubmit.disabled = false; btnBack.disabled = false;
     } else {
