@@ -284,9 +284,11 @@ function showStep(n) {
   document.getElementById('step' + n).classList.add('active');
 }
 
-function validatePhone() {
+async function validatePhone() {
   const ph = document.getElementById('phone').value.trim();
   const err = document.getElementById('phone-error');
+  const btn = document.querySelector('#step1 .btn-confirm');
+
   if (!/^\d{10}$/.test(ph)) {
     err.textContent = 'Ingrese exactamente 10 dígitos.';
     err.style.display = 'block'; return;
@@ -295,6 +297,24 @@ function validatePhone() {
     err.textContent = 'Este número no se encuentra en la lista de invitados.';
     err.style.display = 'block'; return;
   }
+
+  // Verificar si ya está registrado en Google Sheets
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+  err.style.display = 'none';
+  try {
+    const res = await fetch(API_URL + '?phone=' + ph);
+    const data = await res.json();
+    if (data.registered) {
+      err.textContent = 'Este número ya cuenta con un registro confirmado. ¡Nos vemos el 17 de octubre!';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Continuar'; return;
+    }
+  } catch(e) {
+    // Si falla la verificación, dejamos continuar
+  }
+  btn.disabled = false; btn.textContent = 'Continuar';
+
   err.style.display = 'none';
   currentUser = USERS[ph]; formData.phone = ph;
   const sel = document.getElementById('companions-count');
