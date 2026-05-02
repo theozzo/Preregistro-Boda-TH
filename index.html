@@ -80,12 +80,13 @@
     .step{display:none}.step.active{display:block}
 
     /* Cuando estamos en confirmación o éxito, ocultar el header */
-    body.fullscreen-mode .hero-line,
-    body.fullscreen-mode .hero,
-    body.fullscreen-mode .photo-main,
-    body.fullscreen-mode .message,
-    body.fullscreen-mode .form-title{display:none}
-    body.fullscreen-mode .halo{opacity:0}
+    body.fullscreen-mode .hero-line{display:none !important}
+    body.fullscreen-mode .hero{display:none !important}
+    body.fullscreen-mode .photo-main{display:none !important}
+    body.fullscreen-mode .message{display:none !important}
+    body.fullscreen-mode .form-title{display:none !important}
+    body.fullscreen-mode .halo{display:none !important}
+    body.fullscreen-mode .bg-floral{opacity:0.08 !important}
 
     .photo-fullscreen{width:100%;margin:0 0 1.5rem;overflow:hidden;border-top:2px solid var(--red-v);border-bottom:2px solid var(--red-v)}
     .photo-fullscreen img{width:100%;height:clamp(220px,55vw,360px);object-fit:cover;display:block}
@@ -303,7 +304,9 @@
     </div>
 
     <div id="step3" class="step">
-      <p style="font-size:0.82rem;color:var(--mid);text-align:center;margin-bottom:1.25rem;line-height:1.7">Por favor verifique que su información es correcta antes de confirmar.</p>
+      <div class="photo-fullscreen"><img src="foto2.jpg" alt="Tere y Héctor"></div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,5vw,1.8rem);font-weight:300;color:var(--red-v);text-align:center;margin-bottom:0.5rem;font-style:italic">Confirme su registro</h3>
+      <p style="font-size:0.85rem;color:var(--mid);text-align:center;margin-bottom:1.25rem;line-height:1.7">Por favor verifique que su información es correcta antes de confirmar.</p>
       <div class="summary-box" id="summary-content"></div>
       <div class="error-msg" id="step3-error" style="display:none;margin-top:1rem"></div>
       <div class="sending-msg" id="sending-msg" style="display:none">Enviando su registro...</div>
@@ -313,14 +316,19 @@
       </div>
     </div>
 
-    <div id="step4" class="step success">
-      <div class="success-icon">✦</div>
-      <h3>¡Registro confirmado!</h3>
-      <p>Gracias por confirmar su asistencia. Con gusto los esperamos el <strong style="font-weight:400;color:var(--red-v)">17 de octubre</strong>.<br>Próximamente recibirán los detalles del lugar y ubicación.</p>
-      <div class="summary-box" id="final-summary"></div>
+    <div id="step4" class="step success" style="padding:0">
+      <div class="photo-fullscreen"><img src="foto3.jpg" alt="Tere y Héctor"></div>
+      <div style="padding:1.5rem 1rem 2rem">
+        <div class="success-icon">✦</div>
+        <h3>¡Registro confirmado!</h3>
+        <p>Gracias por confirmar su asistencia. Con gusto los esperamos el <strong style="font-weight:400;color:var(--red-v)">17 de octubre</strong>.<br>Próximamente recibirán los detalles del lugar y ubicación.</p>
+        <div class="summary-box" id="final-summary"></div>
+      </div>
     </div>
   </div>
 </div>
+
+<div style="text-align:center;padding:1rem;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);opacity:0.4;position:relative;z-index:1">v4</div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxv2fnyOAu8IHSekO1t7QShEBjQ31_sbMVbL2q0p31Im3ebKDY4cktYXWxcFxt4b5u1Uw/exec";
@@ -342,6 +350,12 @@ let currentMax = null, formData = {};
 function showStep(n) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step' + n).classList.add('active');
+  if (n === 3 || n === 4) {
+    document.body.classList.add('fullscreen-mode');
+  } else {
+    document.body.classList.remove('fullscreen-mode');
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 async function validatePhone() {
@@ -360,6 +374,7 @@ async function validatePhone() {
 
   try {
     const res = await fetch(API_URL + '?phone=' + ph);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
 
     if (data.status === 'not_invited') {
@@ -373,7 +388,7 @@ async function validatePhone() {
       btn.disabled = false; btn.textContent = 'Continuar'; return;
     }
     if (data.status !== 'ok') {
-      throw new Error(data.message || 'Error de verificación');
+      throw new Error(data.message || 'Respuesta inesperada del servidor');
     }
 
     // OK - configurar paso 2
@@ -390,7 +405,7 @@ async function validatePhone() {
     showStep(2);
 
   } catch(e) {
-    err.textContent = 'No se pudo verificar el número. Intente de nuevo.';
+    err.innerHTML = 'No fue posible conectar con el servidor de registro. Por favor verifique su conexión a internet e intente nuevamente. Si el problema persiste, contacte a los novios.';
     err.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Continuar';
   }
@@ -459,6 +474,7 @@ async function submitForm() {
   sending.style.display = 'block'; err.style.display = 'none';
   try {
     const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(formData) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.status === 'ok') {
       buildSummary('final-summary'); showStep(4);
@@ -471,15 +487,16 @@ async function submitForm() {
       err.style.display = 'block';
       btnSubmit.disabled = false; btnBack.disabled = false;
     } else {
-      throw new Error(data.message || 'Error desconocido');
+      throw new Error(data.message || 'Respuesta inesperada del servidor');
     }
   } catch (e) {
-    err.textContent = 'Ocurrió un error al guardar su registro. Por favor intente de nuevo.';
+    err.innerHTML = 'No fue posible guardar su registro en este momento. Por favor verifique su conexión a internet e intente nuevamente. Si el problema persiste, contacte a los novios.';
     err.style.display = 'block';
     btnSubmit.disabled = false; btnBack.disabled = false;
   }
   sending.style.display = 'none';
 }
 </script>
+<div style="text-align:center;padding:1rem 0 0.5rem;font-size:0.6rem;letter-spacing:0.2em;color:#6B2030;opacity:0.4;font-family:'Jost',sans-serif;position:relative;z-index:1">V4</div>
 </body>
 </html>
