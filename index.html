@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-registro · Tere & Héctor · 10 años</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --red:#B01020;--red-v:#C8152A;--red-dark:#7A0A14;
+      --green:#1A4A28;--green-mid:#2D6B3A;
+      --cream:#FDF8F4;--dark:#1A0508;--mid:#6B2030;--line:rgba(176,16,32,0.2);
+    }
+    body{background:var(--cream);font-family:'Jost',sans-serif;font-weight:300;color:var(--dark);position:relative;min-height:100vh}
+
+    .bg-floral{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.13}
+
+    .wrap{max-width:520px;margin:0 auto;padding:0 1.25rem 3rem;position:relative;z-index:1}
+
+    .hero-line{height:2px;background:linear-gradient(90deg,transparent,var(--red-v),transparent);margin-bottom:2rem}
+    .hero{text-align:center;padding:2rem 0 1.25rem}
+    .monogram{font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--red-v);letter-spacing:0.08em;line-height:1;display:flex;align-items:center;justify-content:center;gap:0.15em}
+    .mono-initial{font-size:clamp(2.5rem,8vw,3.5rem)}
+    .mono-amp{font-style:italic;font-size:clamp(1.4rem,5vw,2rem);opacity:0.8;padding:0 0.1em}
+    .title{font-family:'Cormorant Garamond',serif;font-size:clamp(0.8rem,3vw,1.05rem);font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--mid);margin-top:0.5rem}
+    .years{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,8vw,3.5rem);font-style:italic;font-weight:300;color:var(--red-v);line-height:1.1;margin-top:0.1rem}
+    .date{font-family:'Jost',sans-serif;font-size:clamp(0.62rem,2.5vw,0.72rem);letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-top:0.3rem;opacity:0.85}
+    .hero-line-bottom{height:1px;background:linear-gradient(90deg,transparent,rgba(176,16,32,0.4),transparent);margin-top:1.5rem}
+
+    .photo-wrap{width:100%;margin:1.5rem 0;overflow:hidden;border-top:2px solid var(--red-v);border-bottom:2px solid var(--red-v)}
+    .photo-wrap img{width:100%;height:clamp(180px,45vw,280px);object-fit:cover;object-position:center 30%;display:block}
+
+    .message{padding:1.25rem 1.25rem;border-left:3px solid var(--red-v);margin-bottom:1.75rem;background:rgba(253,248,244,0.92)}
+    .message p{font-size:clamp(0.82rem,3vw,0.88rem);line-height:1.9;color:var(--mid);text-align:center;font-weight:400}
+    .message p+p{margin-top:0.9rem}
+    .message strong{font-weight:500;color:var(--dark)}
+    .deadline{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3.5vw,1.15rem);font-style:italic;color:var(--red-v);display:block;margin-top:1rem;font-weight:400;text-align:center}
+
+    .form-section{padding:0}
+    .form-title{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--red-v);margin-bottom:1.5rem;text-align:center}
+
+    .field{margin-bottom:1.25rem}
+    .field label{display:block;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-bottom:0.45rem;opacity:0.85}
+    .field input,.field select{
+      width:100%;border:none;border-bottom:1px solid var(--line);
+      background:transparent;font-family:'Jost',sans-serif;font-weight:300;
+      font-size:clamp(0.85rem,3vw,0.9rem);color:var(--dark);
+      padding:0.5rem 0;outline:none;transition:border-color 0.2s;
+      border-radius:0;-webkit-appearance:none
+    }
+    .field input::placeholder{color:var(--mid);opacity:0.5}
+    .field input:focus,.field select:focus{border-bottom-color:var(--red-v)}
+    .field select{
+      cursor:pointer;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C8152A'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 0 center;padding-right:1.5rem
+    }
+    .field select option{color:#1A0508;background:#FDF8F4}
+
+    .dish-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;margin-top:0.5rem}
+    .dish-opt{position:relative}
+    .dish-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+    .dish-opt label{display:block;padding:0.55rem 0.7rem;font-size:clamp(0.72rem,2.5vw,0.78rem);line-height:1.35;border:0.5px solid var(--line);cursor:pointer;transition:all 0.18s;color:var(--mid);background:rgba(253,248,244,0.8)}
+    .dish-opt input:checked+label{border-color:var(--red-v);border-left:2px solid var(--red-v);color:var(--dark);background:rgba(200,21,42,0.06)}
+
+    .companions-block{margin:1.75rem 0 0.5rem;padding:1.25rem;border-left:3px solid var(--red-v);background:rgba(253,248,244,0.95)}
+    .companions-title{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--red-v);margin-bottom:1.25rem}
+    .companion-row{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--line)}
+    .companion-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .companion-name{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.6rem;opacity:0.8}
+
+    .btn-confirm{display:block;width:100%;margin-top:2rem;padding:0.9rem;background:transparent;border:1.5px solid var(--red-v);font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(0.68rem,2.5vw,0.72rem);letter-spacing:0.3em;text-transform:uppercase;color:var(--red-v);cursor:pointer;transition:all 0.22s}
+    .btn-confirm:hover{background:var(--red-v);color:#fff}
+    .btn-confirm:disabled{opacity:0.5;cursor:not-allowed}
+
+    .step{display:none}.step.active{display:block}
+
+    .success{text-align:center;padding:3rem 1rem}
+    .success-icon{font-family:'Cormorant Garamond',serif;font-size:3rem;color:var(--red-v);font-style:italic;margin-bottom:1rem}
+    .success h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,5vw,1.5rem);font-weight:300;color:var(--dark);margin-bottom:0.75rem}
+    .success p{font-size:clamp(0.82rem,3vw,0.85rem);color:var(--mid);line-height:1.8}
+    .summary-box{margin-top:1.5rem;padding:1rem 1.25rem;border-left:3px solid var(--red-v);background:rgba(253,248,244,0.95);text-align:left}
+    .summary-row{display:flex;justify-content:space-between;gap:1rem;font-size:clamp(0.75rem,2.5vw,0.8rem);color:var(--mid);padding:0.35rem 0;border-bottom:0.5px solid var(--line)}
+    .summary-row:last-child{border-bottom:none}
+    .summary-key{opacity:0.7;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap}
+    .summary-val{text-align:right}
+
+    .sending-msg{text-align:center;font-size:0.82rem;color:var(--mid);margin-top:1rem;font-style:italic}
+    .error-msg{font-size:0.75rem;color:var(--red-v);margin-top:0.35rem;letter-spacing:0.05em}
+    .phone-hint{font-size:0.7rem;color:var(--mid);opacity:0.6;margin-top:0.4rem}
+
+    @media(max-width:420px){
+      .wrap{padding:0 1rem 2.5rem}
+      .dish-options{grid-template-columns:1fr 1fr}
+      .summary-row{flex-direction:column;gap:0.15rem}
+      .summary-val{text-align:left}
+    }
+  </style>
+</head>
+<body>
+
+<svg class="bg-floral" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <g transform="translate(480,60) rotate(15)">
+    <ellipse cx="0" cy="30" rx="6" ry="40" fill="#1A4A28"/>
+    <ellipse cx="-8" cy="20" rx="18" ry="10" fill="#2D6B3A" transform="rotate(-30,-8,20)"/>
+    <ellipse cx="10" cy="35" rx="16" ry="9" fill="#1A4A28" transform="rotate(20,10,35)"/>
+    <circle cx="0" cy="-10" r="28" fill="#B01020"/>
+    <ellipse cx="0" cy="-10" rx="22" ry="20" fill="#C8152A"/>
+    <ellipse cx="-8" cy="-18" rx="14" ry="12" fill="#D42030"/>
+    <ellipse cx="8" cy="-4" rx="12" ry="10" fill="#B01020"/>
+    <ellipse cx="0" cy="-22" rx="10" ry="9" fill="#E02535"/>
+    <ellipse cx="-4" cy="-28" rx="7" ry="7" fill="#C8152A"/>
+    <circle cx="0" cy="-30" r="5" fill="#7A0A14"/>
+  </g>
+  <g transform="translate(60,780) rotate(-10)">
+    <ellipse cx="0" cy="-30" rx="5" ry="45" fill="#1A4A28"/>
+    <ellipse cx="-10" cy="-15" rx="20" ry="11" fill="#2D6B3A" transform="rotate(-25,-10,-15)"/>
+    <ellipse cx="12" cy="-22" rx="17" ry="9" fill="#1A4A28" transform="rotate(15,12,-22)"/>
+    <circle cx="0" cy="-75" r="32" fill="#9A0C1C"/>
+    <ellipse cx="0" cy="-75" rx="26" ry="24" fill="#B8152A"/>
+    <ellipse cx="-10" cy="-84" rx="16" ry="14" fill="#C82030"/>
+    <ellipse cx="10" cy="-68" rx="14" ry="11" fill="#9A0C1C"/>
+    <ellipse cx="0" cy="-90" rx="11" ry="10" fill="#D02535"/>
+    <circle cx="0" cy="-98" r="6" fill="#6A0810"/>
+  </g>
+  <g transform="translate(300,430) rotate(5)">
+    <ellipse cx="0" cy="25" rx="4" ry="32" fill="#2D6B3A"/>
+    <ellipse cx="-7" cy="15" rx="15" ry="8" fill="#1A4A28" transform="rotate(-20,-7,15)"/>
+    <circle cx="0" cy="-8" r="22" fill="#C8152A"/>
+    <ellipse cx="0" cy="-8" rx="18" ry="16" fill="#D42030"/>
+    <ellipse cx="-6" cy="-15" rx="11" ry="10" fill="#E02840"/>
+    <ellipse cx="6" cy="-3" rx="10" ry="8" fill="#C0101E"/>
+    <ellipse cx="0" cy="-19" rx="8" ry="7" fill="#D83040"/>
+    <circle cx="0" cy="-22" r="4" fill="#7A0A14"/>
+  </g>
+  <g transform="translate(80,120) rotate(-20)">
+    <ellipse cx="0" cy="18" rx="3" ry="24" fill="#1A4A28"/>
+    <ellipse cx="-5" cy="10" rx="11" ry="6" fill="#2D6B3A" transform="rotate(-25,-5,10)"/>
+    <circle cx="0" cy="-5" r="14" fill="#B01020"/>
+    <ellipse cx="0" cy="-5" rx="11" ry="10" fill="#C8152A"/>
+    <ellipse cx="-4" cy="-11" rx="8" ry="7" fill="#D42030"/>
+    <ellipse cx="0" cy="-16" rx="5" ry="5" fill="#9A0C1C"/>
+  </g>
+  <g transform="translate(540,680) rotate(25)">
+    <ellipse cx="0" cy="16" rx="3" ry="22" fill="#2D6B3A"/>
+    <ellipse cx="6" cy="8" rx="12" ry="6" fill="#1A4A28" transform="rotate(20,6,8)"/>
+    <circle cx="0" cy="-4" r="13" fill="#A50E1E"/>
+    <ellipse cx="0" cy="-4" rx="10" ry="9" fill="#C0152A"/>
+    <ellipse cx="3" cy="-10" rx="7" ry="6" fill="#D02030"/>
+    <ellipse cx="0" cy="-14" rx="5" ry="4" fill="#880A16"/>
+  </g>
+  <ellipse cx="160" cy="300" rx="12" ry="7" fill="#C8152A" transform="rotate(40,160,300)" opacity="0.6"/>
+  <ellipse cx="420" cy="550" rx="10" ry="6" fill="#B01020" transform="rotate(-30,420,550)" opacity="0.5"/>
+  <ellipse cx="240" cy="700" rx="9" ry="5" fill="#D42030" transform="rotate(60,240,700)" opacity="0.45"/>
+  <ellipse cx="490" cy="200" rx="11" ry="6" fill="#C8152A" transform="rotate(-15,490,200)" opacity="0.5"/>
+  <ellipse cx="100" cy="500" rx="8" ry="5" fill="#B8152A" transform="rotate(70,100,500)" opacity="0.4"/>
+</svg>
+
+<div class="wrap">
+  <div class="hero-line"></div>
+  <div class="hero">
+    <div class="monogram">
+      <span class="mono-initial">T</span>
+      <span class="mono-amp">&</span>
+      <span class="mono-initial">H</span>
+    </div>
+    <div class="title">Celebración de Bodas</div>
+    <div class="years">10 años</div>
+    <div class="date">17 · Octubre · 2026 &nbsp;·&nbsp; 14:00 hrs</div>
+    <div class="hero-line-bottom"></div>
+  </div>
+
+  <div class="photo-wrap">
+    <img src="foto.jpg" alt="Tere y Héctor">
+  </div>
+
+  <div class="message">
+    <p><strong>Con inmensa alegría, Tere y Héctor los invitan a acompañarlos en este momento tan especial.</strong></p>
+    <p>Su presencia es el regalo más valioso que podrían recibir. Para garantizar una experiencia <strong>agradable</strong> para todos, les solicitamos completar su pre-registro a la brevedad posible.</p>
+    <span class="deadline">El registro cierra el 6 de junio de 2026</span>
+    <p style="margin-top:0.75rem;font-size:0.82rem"><strong>Pasada esta fecha no será posible confirmar su asistencia ni reservar su lugar.</strong> Agradecemos su amable comprensión.</p>
+  </div>
+
+  <div class="form-section">
+    <div class="form-title">Confirmación de asistencia</div>
+
+    <div id="step1" class="step active">
+      <div class="field">
+        <label>Número de celular</label>
+        <input type="tel" id="phone" maxlength="10" placeholder="10 dígitos" inputmode="numeric">
+        <div class="phone-hint">Ingrese el número con el que fue invitado</div>
+        <div class="error-msg" id="phone-error" style="display:none"></div>
+      </div>
+      <button class="btn-confirm" onclick="validatePhone()">Continuar</button>
+    </div>
+
+    <div id="step2" class="step">
+      <div class="field">
+        <label>Nombre completo</label>
+        <input type="text" id="name" placeholder="Como desea aparecer en el registro">
+      </div>
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com">
+      </div>
+      <div class="field">
+        <label>Seleccione su platillo</label>
+        <div class="dish-options">
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d0" value="Pescado empanizado"><label for="d0">Filete de pescado empanizado</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d1" value="Milanesa de pollo"><label for="d1">Milanesa de pollo empanizada</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d2" value="Cóctel de mariscos"><label for="d2">Cóctel de mariscos frescos</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d3" value="Aguachiles"><label for="d3">Aguachiles (camarón en salsa cítrica picante)</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d4" value="Camarones Varios"><label for="d4">Camarones — empanizados, zarandeados o enrollados con tocino y queso</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d5" value="Quesadillas"><label for="d5">Quesadillas de camarón</label></div>
+          <div class="dish-opt"><input type="radio" name="dish_main" id="d6" value="Menu infantil"><label for="d6">Menú infantil</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Número de acompañantes <span id="limit-hint" style="font-style:italic;opacity:0.6;text-transform:none;letter-spacing:0"></span></label>
+        <select id="companions-count" onchange="renderCompanions()">
+          <option value="0">Sin acompañantes</option>
+        </select>
+      </div>
+      <div id="companions-block" class="companions-block" style="display:none">
+        <div class="companions-title">Acompañantes</div>
+        <div id="companions-list"></div>
+      </div>
+      <div class="error-msg" id="step2-error" style="display:none"></div>
+      <button class="btn-confirm" onclick="goToConfirm()">Revisar registro</button>
+    </div>
+
+    <div id="step3" class="step">
+      <p style="font-size:0.82rem;color:var(--mid);text-align:center;margin-bottom:1.25rem;line-height:1.7">Por favor verifique que su información es correcta antes de confirmar.</p>
+      <div class="summary-box" id="summary-content"></div>
+      <div class="error-msg" id="step3-error" style="display:none;margin-top:1rem"></div>
+      <div class="sending-msg" id="sending-msg" style="display:none">Enviando su registro...</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem">
+        <button class="btn-confirm" style="margin-top:0" id="btn-back" onclick="goBack()">Modificar</button>
+        <button class="btn-confirm" style="margin-top:0;background:var(--red-v);color:#fff" id="btn-submit" onclick="submitForm()">Confirmar asistencia</button>
+      </div>
+    </div>
+
+    <div id="step4" class="step success">
+      <div class="success-icon">✦</div>
+      <h3>¡Registro confirmado!</h3>
+      <p>Gracias por confirmar su asistencia. Con gusto los esperamos el <strong style="font-weight:400;color:var(--red-v)">17 de octubre</strong>.<br>Próximamente recibirán los detalles del lugar y ubicación.</p>
+      <div class="summary-box" id="final-summary"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwLjTw6yGYPKlOd7EL16uBIcwVFicqEXT9bFzgWwbW2artYeMDBFVhrVylxHUxtpljSiA/exec";
+
+const DISHES = ['Pescado empanizado','Milanesa de pollo','Cóctel de mariscos','Aguachiles','Camarones Varios','Quesadillas','Menu infantil'];
+const DISH_LABELS = {
+  'Pescado empanizado':'Filete de pescado empanizado',
+  'Milanesa de pollo':'Milanesa de pollo empanizada',
+  'Cóctel de mariscos':'Cóctel de mariscos frescos',
+  'Aguachiles':'Aguachiles',
+  'Camarones Varios':'Camarones varios',
+  'Quesadillas':'Quesadillas de camarón',
+  'Menu infantil':'Menú infantil'
+};
+
+// =============================================
+// LISTA DE INVITADOS — editar según sea necesario
+// formato: 'telefono': { max: N }
+// =============================================
+const USERS = {
+  '5554441100': { max: 3 },
+  '5554441101': { max: 2 },
+  '5554441102': { max: 5 },
+  '5554441103': { max: 1 },
+  '5554441104': { max: 4 }
+};
+
+let currentUser = null, formData = {};
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+}
+
+function validatePhone() {
+  const ph = document.getElementById('phone').value.trim();
+  const err = document.getElementById('phone-error');
+  if (!/^\d{10}$/.test(ph)) {
+    err.textContent = 'Ingrese exactamente 10 dígitos.';
+    err.style.display = 'block'; return;
+  }
+  if (!USERS[ph]) {
+    err.textContent = 'Este número no se encuentra en la lista de invitados.';
+    err.style.display = 'block'; return;
+  }
+  err.style.display = 'none';
+  currentUser = USERS[ph]; formData.phone = ph;
+  const sel = document.getElementById('companions-count');
+  sel.innerHTML = '<option value="0">Sin acompañantes</option>';
+  for (let i = 1; i <= currentUser.max; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = i + ' acompañante' + (i > 1 ? 's' : '');
+    sel.appendChild(o);
+  }
+  document.getElementById('limit-hint').textContent = '(máximo ' + currentUser.max + ')';
+  showStep(2);
+}
+
+function renderCompanions() {
+  const n = parseInt(document.getElementById('companions-count').value);
+  const block = document.getElementById('companions-block');
+  const list = document.getElementById('companions-list');
+  if (n === 0) { block.style.display = 'none'; return; }
+  block.style.display = 'block'; list.innerHTML = '';
+  for (let i = 1; i <= n; i++) {
+    list.innerHTML += `<div class="companion-row">
+      <div class="companion-name">Acompañante ${i}</div>
+      <div class="dish-options">
+        ${DISHES.map((d, j) => `<div class="dish-opt">
+          <input type="radio" name="cdish${i}" id="cd${i}_${j}" value="${d}">
+          <label for="cd${i}_${j}">${DISH_LABELS[d]}</label>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+}
+
+function goToConfirm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const dish = document.querySelector('input[name="dish_main"]:checked');
+  const err = document.getElementById('step2-error');
+  if (!name) { err.textContent = 'Por favor ingrese su nombre.'; err.style.display = 'block'; return; }
+  if (!email || !/\S+@\S+\.\S+/.test(email)) { err.textContent = 'Por favor ingrese un correo válido.'; err.style.display = 'block'; return; }
+  if (!dish) { err.textContent = 'Por favor seleccione su platillo.'; err.style.display = 'block'; return; }
+  const n = parseInt(document.getElementById('companions-count').value);
+  let companions = [];
+  for (let i = 1; i <= n; i++) {
+    const cd = document.querySelector(`input[name="cdish${i}"]:checked`);
+    if (!cd) { err.textContent = `Seleccione platillo para el acompañante ${i}.`; err.style.display = 'block'; return; }
+    companions.push({ dish: cd.value });
+  }
+  err.style.display = 'none';
+  formData = { ...formData, name, email, dish: dish.value, companions };
+  buildSummary('summary-content'); showStep(3);
+}
+
+function buildSummary(id) {
+  const d = formData;
+  let html = `
+    <div class="summary-row"><span class="summary-key">Teléfono</span><span class="summary-val">${d.phone}</span></div>
+    <div class="summary-row"><span class="summary-key">Nombre</span><span class="summary-val">${d.name}</span></div>
+    <div class="summary-row"><span class="summary-key">Correo</span><span class="summary-val">${d.email}</span></div>
+    <div class="summary-row"><span class="summary-key">Su platillo</span><span class="summary-val">${DISH_LABELS[d.dish]}</span></div>`;
+  d.companions.forEach((c, i) => {
+    html += `<div class="summary-row"><span class="summary-key">Acompañante ${i + 1}</span><span class="summary-val">${DISH_LABELS[c.dish]}</span></div>`;
+  });
+  document.getElementById(id).innerHTML = html;
+}
+
+function goBack() { showStep(2); }
+
+async function submitForm() {
+  const btnSubmit = document.getElementById('btn-submit');
+  const btnBack = document.getElementById('btn-back');
+  const sending = document.getElementById('sending-msg');
+  const err = document.getElementById('step3-error');
+  btnSubmit.disabled = true; btnBack.disabled = true;
+  sending.style.display = 'block'; err.style.display = 'none';
+  try {
+    const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(formData) });
+    const data = await res.json();
+    if (data.status === 'ok') {
+      buildSummary('final-summary'); showStep(4);
+    } else if (data.status === 'duplicate') {
+      err.textContent = 'Este número ya cuenta con un registro. Si tiene dudas contáctenos.';
+      err.style.display = 'block';
+      btnSubmit.disabled = false; btnBack.disabled = false;
+    } else {
+      throw new Error(data.message || 'Error desconocido');
+    }
+  } catch (e) {
+    err.textContent = 'Ocurrió un error al guardar su registro. Por favor intente de nuevo.';
+    err.style.display = 'block';
+    btnSubmit.disabled = false; btnBack.disabled = false;
+  }
+  sending.style.display = 'none';
+}
+</script>
+</body>
+</html>
