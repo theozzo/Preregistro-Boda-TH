@@ -25,31 +25,31 @@
     .hero-line{height:2px;background:linear-gradient(90deg,transparent,var(--red-v),transparent);margin-bottom:2rem}
     .hero{text-align:center;padding:2rem 0 1.25rem}
     .monogram{font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--red-v);letter-spacing:0.08em;line-height:1;display:flex;align-items:center;justify-content:center;gap:0.15em}
-    .mono-initial{font-size:clamp(2.5rem,8vw,3.5rem)}
-    .mono-amp{font-style:italic;font-size:clamp(1.4rem,5vw,2rem);opacity:0.8;padding:0 0.1em}
-    .title{font-family:'Cormorant Garamond',serif;font-size:clamp(0.8rem,3vw,1.05rem);font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--mid);margin-top:0.5rem}
-    .years{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,8vw,3.5rem);font-style:italic;font-weight:300;color:var(--red-v);line-height:1.1;margin-top:0.1rem}
-    .date{font-family:'Jost',sans-serif;font-size:clamp(0.62rem,2.5vw,0.72rem);letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-top:0.3rem;opacity:0.85}
+    .mono-initial{font-size:clamp(2.75rem,8.8vw,3.85rem)}
+    .mono-amp{font-style:italic;font-size:clamp(1.55rem,5.5vw,2.2rem);opacity:0.8;padding:0 0.1em}
+    .title{font-family:'Cormorant Garamond',serif;font-size:clamp(0.88rem,3.3vw,1.15rem);font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--mid);margin-top:0.5rem}
+    .years{font-family:'Cormorant Garamond',serif;font-size:clamp(2.75rem,8.8vw,3.85rem);font-style:italic;font-weight:300;color:var(--red-v);line-height:1.1;margin-top:0.1rem}
+    .date{font-family:'Jost',sans-serif;font-size:clamp(0.68rem,2.75vw,0.79rem);letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-top:0.3rem;opacity:0.85}
     .hero-line-bottom{height:1px;background:linear-gradient(90deg,transparent,rgba(176,16,32,0.4),transparent);margin-top:1.5rem}
 
     .photo-wrap{width:100%;margin:1.5rem 0;overflow:hidden;border-top:2px solid var(--red-v);border-bottom:2px solid var(--red-v)}
     .photo-wrap img{width:100%;height:clamp(180px,45vw,280px);object-fit:cover;object-position:center 30%;display:block}
 
     .message{padding:1.25rem 1.25rem;border-left:3px solid var(--red-v);margin-bottom:1.75rem;background:transparent}
-    .message p{font-size:clamp(0.82rem,3vw,0.88rem);line-height:1.9;color:var(--mid);text-align:center;font-weight:400}
+    .message p{font-size:clamp(0.9rem,3.3vw,0.97rem);line-height:1.9;color:var(--mid);text-align:center;font-weight:400}
     .message p+p{margin-top:0.9rem}
     .message strong{font-weight:500;color:var(--dark)}
-    .deadline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,4.5vw,1.4rem);font-style:italic;color:var(--red-v);display:block;margin-top:1rem;font-weight:400;text-align:center}
+    .deadline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.26rem,4.7vw,1.47rem);font-style:italic;color:var(--red-v);display:block;margin-top:1rem;font-weight:500;text-align:center}
 
     .form-section{padding:0}
-    .form-title{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--red-v);margin-bottom:1.5rem;text-align:center}
+    .form-title{font-size:0.85rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--red-dark);margin-bottom:1.5rem;text-align:center;font-weight:500}
 
     .field{margin-bottom:1.25rem}
-    .field label{display:block;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-bottom:0.45rem;opacity:0.85}
+    .field label{display:block;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red-dark);margin-bottom:0.45rem;opacity:1;font-weight:500}
     .field input,.field select{
       width:100%;border:none;border-bottom:1px solid var(--line);
       background:transparent;font-family:'Jost',sans-serif;font-weight:300;
-      font-size:clamp(0.85rem,3vw,0.9rem);color:var(--dark);
+      font-size:clamp(1rem,3.3vw,1.05rem);color:var(--dark);
       padding:0.5rem 0;outline:none;transition:border-color 0.2s;
       border-radius:0;-webkit-appearance:none
     }
@@ -65,16 +65,17 @@
     .dish-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;margin-top:0.5rem}
     .dish-opt{position:relative}
     .dish-opt input[type=radio]{position:absolute;opacity:0;width:0;height:0}
-    .dish-opt label{display:block;padding:0.55rem 0.7rem;font-size:clamp(0.72rem,2.5vw,0.78rem);line-height:1.35;border:0.5px solid var(--line);cursor:pointer;transition:all 0.18s;color:var(--mid);background:transparent}
+    .dish-opt label{display:block;padding:0.55rem 0.7rem;font-size:clamp(0.85rem,2.8vw,0.92rem);line-height:1.35;border:0.5px solid var(--line);cursor:pointer;transition:all 0.18s;color:var(--mid);background:transparent}
+    .dish-options-titular .dish-opt label{font-size:clamp(0.7rem,2.3vw,0.78rem)}
     .dish-opt input:checked+label{border-color:var(--red-v);border-left:2px solid var(--red-v);color:var(--dark);background:rgba(200,21,42,0.06)}
 
     .companions-block{margin:1.75rem 0 0.5rem;padding:1.25rem;border-left:3px solid var(--red-v);background:transparent}
-    .companions-title{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--red-v);margin-bottom:1.25rem}
+    .companions-title{font-size:0.78rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--red-dark);margin-bottom:1.25rem;font-weight:500}
     .companion-row{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--line)}
     .companion-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-    .companion-name{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mid);margin-bottom:0.6rem;opacity:0.8}
+    .companion-name{font-size:0.88rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--red-dark);margin-bottom:0.6rem;font-weight:500}
 
-    .btn-confirm{display:block;width:100%;margin-top:2rem;padding:0.9rem;background:transparent;border:1.5px solid var(--red-v);font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(0.68rem,2.5vw,0.72rem);letter-spacing:0.3em;text-transform:uppercase;color:var(--red-v);cursor:pointer;transition:all 0.22s}
+    .btn-confirm{display:block;width:100%;margin-top:2rem;padding:0.9rem;background:transparent;border:1.5px solid var(--red-v);font-family:'Jost',sans-serif;font-weight:400;font-size:clamp(0.78rem,2.8vw,0.85rem);letter-spacing:0.3em;text-transform:uppercase;color:var(--red-dark);cursor:pointer;transition:all 0.22s}
     .btn-confirm:hover{background:var(--red-v);color:#fff}
     .btn-confirm:disabled{opacity:0.5;cursor:not-allowed}
 
@@ -89,7 +90,7 @@
     body.fullscreen-mode .halo{display:none !important}
     body.fullscreen-mode .bg-floral{opacity:0.08 !important}
 
-    .photo-fullscreen{width:100%;margin:0 0 1.5rem;overflow:hidden;border-top:2px solid var(--red-v);border-bottom:2px solid var(--red-v)}
+    .photo-fullscreen{width:100%;margin:0 0 0.5rem;overflow:hidden;border-top:2px solid var(--red-v);border-bottom:2px solid var(--red-v)}
     .photo-fullscreen img{width:100%;height:clamp(220px,55vw,360px);object-fit:cover;display:block}
 
     .success{text-align:center;padding:3rem 1rem}
@@ -104,7 +105,7 @@
 
     .sending-msg{text-align:center;font-size:0.82rem;color:var(--mid);margin-top:1rem;font-style:italic}
     .error-msg{font-size:0.75rem;color:var(--red-v);margin-top:0.35rem;letter-spacing:0.05em}
-    .phone-hint{font-size:0.7rem;color:var(--mid);opacity:0.6;margin-top:0.4rem}
+    .phone-hint{font-size:0.85rem;color:var(--dark);opacity:0.7;margin-top:0.4rem}
 
     @media(max-width:420px){
       .wrap{padding:0 1rem 2.5rem}
@@ -282,7 +283,7 @@
       </div>
       <div class="field">
         <label>Seleccione su platillo</label>
-        <div class="dish-options">
+        <div class="dish-options dish-options-titular">
           <div class="dish-opt"><input type="radio" name="dish_main" id="d0" value="Pescado empanizado"><label for="d0">Filete de pescado empanizado</label></div>
           <div class="dish-opt"><input type="radio" name="dish_main" id="d1" value="Milanesa de pollo"><label for="d1">Milanesa de pollo empanizada</label></div>
           <div class="dish-opt"><input type="radio" name="dish_main" id="d2" value="Cóctel de mariscos"><label for="d2">Cóctel de mariscos frescos</label></div>
@@ -331,7 +332,7 @@
   </div>
 </div>
 
-<div style="text-align:center;padding:1rem;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);opacity:0.4;position:relative;z-index:1">v6</div>
+<div style="text-align:center;padding:1rem;font-size:0.6rem;letter-spacing:0.2em;color:var(--mid);opacity:0.4;position:relative;z-index:1">v7</div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxv2fnyOAu8IHSekO1t7QShEBjQ31_sbMVbL2q0p31Im3ebKDY4cktYXWxcFxt4b5u1Uw/exec";
